@@ -2,6 +2,7 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -12,7 +13,12 @@ public class SimpleClock extends JFrame {
         SimpleDateFormat timeFormat;
         SimpleDateFormat dayFormat;
         SimpleDateFormat dateFormat;
-    
+
+        JButton militaryButton;
+        JButton localGMT;
+
+        boolean isMilitary=false;
+
         JLabel timeLabel;
         JLabel dayLabel;
         JLabel dateLabel;
@@ -40,17 +46,41 @@ public class SimpleClock extends JFrame {
     
             dateLabel=new JLabel();
             dateLabel.setFont(new Font("Ink Free",Font.BOLD,30));
-    
+
+            militaryButton = new JButton("Military");
+            militaryButton.addActionListener(this::militaryStandard);
+            this.add(militaryButton);
+
+            localGMT = new JButton("GMT");
+            localGMT.addActionListener(this::localTime);
+            this.add(localGMT);
+
     
             this.add(timeLabel);
             this.add(dayLabel);
             this.add(dateLabel);
+            this.add(militaryButton);
             this.setVisible(true);
     
             setTimer();
         }
-    
-        public void setTimer() {
+
+    private void localTime(ActionEvent actionEvent) {
+    }
+
+    private void militaryStandard(ActionEvent actionEvent) {
+        if(isMilitary){
+            timeFormat = new SimpleDateFormat("hh:mm:ss a");
+            isMilitary = false;
+        } else {
+            timeFormat = new SimpleDateFormat("HH:mm:ss a");
+            isMilitary = true;
+        }
+        time = timeFormat.format(Calendar.getInstance().getTime());
+        timeLabel.setText(time);
+    }
+
+    public void setTimer() {
             while (true) {
                 time = timeFormat.format(Calendar.getInstance().getTime());
                 timeLabel.setText(time);
