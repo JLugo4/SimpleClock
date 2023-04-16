@@ -49,17 +49,18 @@ public class SimpleClock extends JFrame {
 
             militaryButton = new JButton("Military");
             militaryButton.addActionListener(this::militaryStandard);
-            this.add(militaryButton);
+            //this.add(militaryButton);
 
             localGMT = new JButton("GMT");
             localGMT.addActionListener(this::localTime);
-            this.add(localGMT);
+
 
     
             this.add(timeLabel);
             this.add(dayLabel);
             this.add(dateLabel);
             this.add(militaryButton);
+            this.add(localGMT);
             this.setVisible(true);
     
             setTimer();
